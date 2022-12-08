@@ -40,10 +40,6 @@ def encypt_image(s, n):
         dec_encrypt.append(aes.bin_to_dec(int(aes.hex_to_bin(cp_encrypt[i:i+2]))))
     return dec_encrypt
 
-
-=======
-a = aes.hex_to_bin(ECB.encryptECB(RGB_to_binl(red), key))
-#print(a)
 >>>>>>> origin/main
 #1: ảnh sau khi mã hóa được cipher text
 #2: chuyển cipher text về bin
