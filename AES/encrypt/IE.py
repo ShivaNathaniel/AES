@@ -1,7 +1,6 @@
 import numpy as np
 import cv2
 import aes
-import ECB
 key = '0f1571c947d9e8590cb7add6af7f6798'
 key = key.upper()        #viết hoa key
 
@@ -46,6 +45,9 @@ def encypt_image(s, n):
 #3: chuyển bin về dec
 
 <<<<<<< HEAD
+dec_red = []
+dec_green = []
+dec_blue = []
 dec_red = encypt_image(RGB_to_binl(red), 32)        #dec của red
 dec_green = encypt_image(RGB_to_binl(green), 32)    #dec của green
 dec_blue = encypt_image(RGB_to_binl(blue), 32)      #dec của blue
