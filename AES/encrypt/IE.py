@@ -19,6 +19,7 @@ def RGB_to_binl(n):
             lst_str += aes.bin_to_hex(np.binary_repr(n[i][j], width=8))
     return lst_str
 
+<<<<<<< HEAD
 #chia thành các khối
 def encypt_image(s, n):
     a = []
@@ -40,10 +41,15 @@ def encypt_image(s, n):
     return dec_encrypt
 
 
+=======
+a = aes.hex_to_bin(ECB.encryptECB(RGB_to_binl(red), key))
+#print(a)
+>>>>>>> origin/main
 #1: ảnh sau khi mã hóa được cipher text
 #2: chuyển cipher text về bin
 #3: chuyển bin về dec
 
+<<<<<<< HEAD
 dec_red = encypt_image(RGB_to_binl(red), 32)        #dec của red
 dec_green = encypt_image(RGB_to_binl(green), 32)    #dec của green
 dec_blue = encypt_image(RGB_to_binl(blue), 32)      #dec của blue
@@ -58,3 +64,17 @@ img_en = cv2.merge([img_red, img_blue, img_green])
 
 cv2.imshow('encrypt',cv2.normalize(img_en,np.zeros(img.shape),0,255,cv2.NORM_MINMAX))
 cv2.waitKey(0)
+=======
+#dec_red = aes.bin_to_dec(aes.hex_to_bin(ECB.encryptECB(RGB_to_binl(red), key)))     #dec của red
+#dec_green = aes.bin_to_dec(aes.hex_to_bin(ECB.encryptECB(RGB_to_binl(red), key)))   #dec của green
+#dec_blue = aes.bin_to_dec(aes.hex_to_bin(ECB.encryptECB(RGB_to_binl(red), key)))    #dec của blue
+
+#đưa về dạng ảnh
+#img_red = (np.array([int(i) for i in dec_red],dtype = np.uint8) ).reshape(img.shape[0],img.shape[1])
+#img_green = (np.array([int(i) for i in dec_green],dtype = np.uint8) ).reshape(img.shape[0],img.shape[1])
+#img_blue = (np.array([int(i) for i in dec_blue],dtype = np.uint8) ).reshape(img.shape[0],img.shape[1])
+
+b = aes.bin_to_dec(101001001001)
+print(a)
+#cv2.imshow('', img_red)
+>>>>>>> origin/main
