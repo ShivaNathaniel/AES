@@ -423,7 +423,7 @@ def decrypt(cp, key):
     for i in range(1, 10):
         aftershift = invshiftrows(cp)
         aftersub = invsub(aftershift)
-        rk = w[(10 - i) * 4] + w[(10 - i) * 4 + 1] + w[(10 - i) * 4  + 2] + w[(10 - i) * 4 + 3]
+        rk = w[(10 - i) * 4] + w[(10 - i) * 4 + 1] + w[(10 - i) * 4 + 2] + w[(10 - i) * 4 + 3]
         afteradd = addKey(aftersub, rk)
         cp = invmixcol(afteradd)
     last_shift = invshiftrows(cp)
