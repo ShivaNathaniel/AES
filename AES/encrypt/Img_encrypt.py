@@ -47,13 +47,13 @@ dec_red = []
 dec_green = []
 dec_blue = []
 dec_red = encypt_image(RGB_to_binl(red), 32)        #dec của red
-#dec_green = encypt_image(RGB_to_binl(green), 32)    #dec của green
-#dec_blue = encypt_image(RGB_to_binl(blue), 32)      #dec của blue
+dec_green = encypt_image(RGB_to_binl(green), 32)    #dec của green
+dec_blue = encypt_image(RGB_to_binl(blue), 32)      #dec của blue
 
 #đưa về dạng ảnh
 img_red = (np.array([int(i) for i in dec_red],dtype = np.uint8) ).reshape(img.shape[0],img.shape[1])
-#img_green = (np.array([int(i) for i in dec_green],dtype = np.uint8) ).reshape(img.shape[0],img.shape[1])
-#img_blue = (np.array([int(i) for i in dec_blue],dtype = np.uint8) ).reshape(img.shape[0],img.shape[1])
+img_green = (np.array([int(i) for i in dec_green],dtype = np.uint8) ).reshape(img.shape[0],img.shape[1])
+img_blue = (np.array([int(i) for i in dec_blue],dtype = np.uint8) ).reshape(img.shape[0],img.shape[1])
 
 #merge 3 ảnh sau mã hóa
 #img_en = cv2.merge([img_red, img_blue, img_green])
@@ -63,13 +63,15 @@ img_red = (np.array([int(i) for i in dec_red],dtype = np.uint8) ).reshape(img.sh
 #cv2.waitKey(0)
 
 #decrypt
+#s là dạng ảnh
 def decrypt_image(s, n):
-    cipher_hex = []                                            #đưa từ dec về hex của chuỗi trước giải mã
-    for i in range(0, len(s)):
-        cipher_hex.append(aes.bin_to_hex(aes.dec_to_bin(s)))
+    lst_str = ''                                                        #đưa từ dec về hex của chuỗi trước giải mã
+    for i in range(s.shape[0]):
+        for j in range(s.shape[1]):
+            lst_str += aes.bin_to_hex(np.binary_repr(s[i][j], width=8))
     a = []
-    for i in range(0, len(s), n):                              # chia thành các khối n phần tử đưa vào list
-        a.append(s[i:i + n])
+    for i in range(0, len(lst_str), n):                         # chia thành các khối n phần tử đưa vào list
+        a.append(lst_str[i:i + n])
     cp_decrypt = ''                                            # string lưu trữ cipher text sau giải mã
     for i in a:
         cp_decrypt += decrypt_aes.decrypt(i, key)
@@ -78,8 +80,18 @@ def decrypt_image(s, n):
         dec_decrypt.append(decrypt_aes.bin_to_dec(int(decrypt_aes.hex_to_bin(cp_decrypt[i:i+2]))))
     return dec_decrypt
 
-c = decrypt_image(dec_red, 32)
-img_red = (np.array([int(i) for i in c],dtype = np.uint8) ).reshape(img.shape[0],img.shape[1])
+#đưa về dạng dec của rgb
+r = decrypt_image(img_red, 32)
+g = decrypt_image(img_green, 32)
+b = decrypt_image(img_blue, 32)
 
-cv2.imshow('', img_red)
+#đưa về dạng ảnh rgb greyscale
+img_red_de = (np.array([int(i) for i in r],dtype = np.uint8) ).reshape(img.shape[0],img.shape[1])
+img_green_de = (np.array([int(i) for i in g],dtype = np.uint8) ).reshape(img.shape[0],img.shape[1])
+img_blue_de = (np.array([int(i) for i in b],dtype = np.uint8) ).reshape(img.shape[0],img.shape[1])
+
+#merge 3 ảnh sau giải mã
+img_de = cv2.merge([img_red_de, img_blue_de, img_green_de])
+
+cv2.imshow('', img_de)
 cv2.waitKey(0)
