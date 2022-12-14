@@ -5,7 +5,7 @@ key = '0f1571c947d9e8590cb7add6af7f6798'
 key = key.upper()        #viết hoa key
 
 #tách thành 3 channel RGB của ảnh mã hóa
-img = cv2.imread('amongus.png',1)
+img = cv2.imread('anh_ma_hoa.png',1)
 de_red = img[:, :, 2]
 de_green = img[:, :, 1]
 de_blue = img[:, :, 0]
@@ -39,5 +39,8 @@ img_blue_de = (np.array([int(i) for i in b],dtype = np.uint8) ).reshape(img.shap
 #merge 3 ảnh sau giải mã
 img_de = cv2.merge([img_red_de, img_blue_de, img_green_de])
 
-cv2.imshow('', img_de)
-cv2.waitKey(0)
+#lưu ảnh sau giải mã
+cv2.imwrite('anh_giai_ma.png', img_de)
+
+#cv2.imshow('', img_de)
+#cv2.waitKey(0)
